@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ruby Critic - Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- StyleSheets -->
+    <link href="../assets/stylesheets/bootstrap.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../assets/stylesheets/font-awesome.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../assets/stylesheets/prettify.custom_theme.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../assets/stylesheets/application.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <header class="navbar navbar-default navbar-fixed-top">
+      <a href="#menu-toggle" class="btn btn-default hidden-lg visible-sm-* hidden-md visible-xs-* pull-left" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+      <a href="../overview.html"><img src="../assets/images/logo.png" title="Ruby Critic Logo" width="55"><span class="logo">RUBYCRITIC</span></a>
+    </header>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <aside id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-item">
+            <a href="../overview.html" class="project-nav-item overview-nav"><i class="fa fa-dashboard"></i>Overview</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../code_index.html" class="project-nav-item code-index-nav"><i class="fa fa-code"></i>Code</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../smells_index.html" class="project-nav-item smells-index-nav"><i class="fa fa-warning"></i>Smells</a>
+          </li>
+        </ul>
+      </aside>
+      <!-- /#sidebar-wrapper -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+  <!--Page Title -->
+  <div class="Page_Title">
+    <div class="file-time">
+      <span class="committed-at">
+        
+          Updated <time class='js-timeago' datetime='2018-04-02 21:24:53 -0700'>2018-04-02 21:24:53 -0700</time>
+        
+      </span>
+    </div>
+    <div>
+      <h3><small>lib /</small> github_api.rb</h3>
+    </div>
+  </div>
+  <!--End Page Title -->
+  <div class="Content_Wrapper">
+    <!-- code detail -->
+    <div class="code-top-detail clearfix row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="rating b big">
+              B
+            </div>
+          </div>
+          <div class="code-statistics col-md-11">
+            <div class="col-md-3">
+              <div><span class="metric">168</span><small> lines of codes</small></div>
+              <div><span class="metric">21</span><small> methods</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">3.5</span><small> complexity/method</small></div>
+              <div><span class="metric">81</span><small> churn</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">72.75</span><small> complexity</small></div>
+              <div><span class="metric">0</span><small> duplications</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="code-tabs">
+          <ul class="nav nav-pills right-to-left">
+            <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
+            <li class="active">
+              <a href="#" id="toggle-smells" class="toggle-button button">
+                8
+                smells
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <code class="prettyprint linenums lang-ruby file-code js-file-code"># frozen_string_literal: true
+require &quot;attr_extras&quot;
+require &quot;octokit&quot;
+require &quot;base64&quot;
+
+class GitHubApi<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md" target="_blank"><b>IrresponsibleModule</b></a>        </span>      </div>      <span>GitHubApi has no descriptive comment</span>          </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Methods.md" target="_blank"><b>TooManyMethods</b></a>        </span>      </div>      <span>GitHubApi has at least 21 methods</span>          </div>  </li></ol>
+  ORGANIZATION_TYPE = &quot;Organization&quot;
+  PREVIEW_API_HEADER = &quot;application/vnd.github.black-cat-preview+json&quot;
+
+  attr_reader :file_cache, :token
+
+  def initialize(token)
+    @token = token
+    @file_cache = {}
+  end
+
+  def scopes
+    client.scopes(token).join(&quot;,&quot;)
+  end
+
+  def repos
+    client.repos
+  end
+
+  def repo(repo_name)
+    client.repository(repo_name)
+  end
+
+  def create_hook(full_repo_name, callback_endpoint)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>GitHubApi#create_hook has approx 6 statements</span>          </div>  </li></ol>
+    hook = client.create_hook(
+      full_repo_name,
+      &quot;web&quot;,
+      { url: callback_endpoint },
+      { events: [&quot;pull_request&quot;], active: true }
+    )
+
+    if block_given?
+      yield hook
+    else
+      hook
+    end
+  rescue Octokit::UnprocessableEntity =&gt; error
+    if error.message.include? &quot;Hook already exists&quot;
+      true
+    else
+      raise
+    end
+  end
+
+  def remove_hook(full_github_name, hook_id)
+    response = client.remove_hook(full_github_name, hook_id)
+
+    if block_given?
+      yield
+    else
+      response
+    end
+  end
+
+  def pull_request_comments(full_repo_name, pull_request_number)
+    client.pull_request_comments(full_repo_name, pull_request_number)
+  end
+
+  def create_pull_request_review(repo_name, pr_number, comments, body)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Long-Parameter-List.md" target="_blank"><b>LongParameterList</b></a>        </span>      </div>      <span>GitHubApi#create_pull_request_review has 4 parameters</span>          </div>  </li></ol>
+    client.post(
+      &quot;#{Octokit::Repository.path(repo_name)}/pulls/#{pr_number}/reviews&quot;,
+      accept: PREVIEW_API_HEADER,
+      event: &quot;COMMENT&quot;,
+      body: body,
+      comments: comments,
+    )
+  end
+
+  def pull_request_files(full_repo_name, number)
+    client.pull_request_files(full_repo_name, number)
+  end
+
+  def file_contents(full_repo_name, filename, sha)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Data-Clump.md" target="_blank"><b>DataClump</b></a>        </span>      </div>      <span>GitHubApi takes parameters ['full_repo_name', 'sha'] to 4 methods</span>              <span>Locations:</span>                  <a href="github_api.html#L78" class="js-smell-location">0</a>                  <a href="github_api.html#L83" class="js-smell-location">1</a>                  <a href="github_api.html#L92" class="js-smell-location">2</a>                  <a href="github_api.html#L101" class="js-smell-location">3</a>                  </div>  </li></ol>
+    file_cache[&quot;#{full_repo_name}/#{sha}/#{filename}&quot;] ||=
+      client.contents(full_repo_name, path: filename, ref: sha)
+  end
+
+  def create_pending_status(full_repo_name, sha, description)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Data-Clump.md" target="_blank"><b>DataClump</b></a>        </span>      </div>      <span>GitHubApi takes parameters ['description', 'full_repo_name', 'sha'] to 3 methods</span>              <span>Locations:</span>                  <a href="github_api.html#L83" class="js-smell-location">0</a>                  <a href="github_api.html#L92" class="js-smell-location">1</a>                  <a href="github_api.html#L101" class="js-smell-location">2</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Data-Clump.md" target="_blank"><b>DataClump</b></a>        </span>      </div>      <span>GitHubApi takes parameters ['full_repo_name', 'sha'] to 4 methods</span>              <span>Locations:</span>                  <a href="github_api.html#L78" class="js-smell-location">0</a>                  <a href="github_api.html#L83" class="js-smell-location">1</a>                  <a href="github_api.html#L92" class="js-smell-location">2</a>                  <a href="github_api.html#L101" class="js-smell-location">3</a>                  </div>  </li></ol>
+    create_status(
+      repo: full_repo_name,
+      sha: sha,
+      state: &quot;pending&quot;,
+      description: description
+    )
+  end
+
+  def create_success_status(full_repo_name, sha, description)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Data-Clump.md" target="_blank"><b>DataClump</b></a>        </span>      </div>      <span>GitHubApi takes parameters ['description', 'full_repo_name', 'sha'] to 3 methods</span>              <span>Locations:</span>                  <a href="github_api.html#L83" class="js-smell-location">0</a>                  <a href="github_api.html#L92" class="js-smell-location">1</a>                  <a href="github_api.html#L101" class="js-smell-location">2</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Data-Clump.md" target="_blank"><b>DataClump</b></a>        </span>      </div>      <span>GitHubApi takes parameters ['full_repo_name', 'sha'] to 4 methods</span>              <span>Locations:</span>                  <a href="github_api.html#L78" class="js-smell-location">0</a>                  <a href="github_api.html#L83" class="js-smell-location">1</a>                  <a href="github_api.html#L92" class="js-smell-location">2</a>                  <a href="github_api.html#L101" class="js-smell-location">3</a>                  </div>  </li></ol>
+    create_status(
+      repo: full_repo_name,
+      sha: sha,
+      state: &quot;success&quot;,
+      description: description
+    )
+  end
+
+  def create_error_status(full_repo_name, sha, description, target_url = nil)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Data-Clump.md" target="_blank"><b>DataClump</b></a>        </span>      </div>      <span>GitHubApi takes parameters ['description', 'full_repo_name', 'sha'] to 3 methods</span>              <span>Locations:</span>                  <a href="github_api.html#L83" class="js-smell-location">0</a>                  <a href="github_api.html#L92" class="js-smell-location">1</a>                  <a href="github_api.html#L101" class="js-smell-location">2</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Data-Clump.md" target="_blank"><b>DataClump</b></a>        </span>      </div>      <span>GitHubApi takes parameters ['full_repo_name', 'sha'] to 4 methods</span>              <span>Locations:</span>                  <a href="github_api.html#L78" class="js-smell-location">0</a>                  <a href="github_api.html#L83" class="js-smell-location">1</a>                  <a href="github_api.html#L92" class="js-smell-location">2</a>                  <a href="github_api.html#L101" class="js-smell-location">3</a>                  </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Long-Parameter-List.md" target="_blank"><b>LongParameterList</b></a>        </span>      </div>      <span>GitHubApi#create_error_status has 4 parameters</span>          </div>  </li></ol>
+    create_status(
+      repo: full_repo_name,
+      sha: sha,
+      state: &quot;error&quot;,
+      description: description,
+      target_url: target_url
+    )
+  end
+
+  def accept_invitation(repo_name)
+    repo_invitation = find_invitation_for_repo(repo_name)
+
+    if repo_invitation
+      accept_repository_invitation(repo_invitation)
+    else
+      raise &quot;Invitation for Hound to #{repo_name} not found&quot;
+    end
+  end
+
+  def add_collaborator(repo_name, username)
+    client.add_collaborator(repo_name, username)
+  end
+
+  def remove_collaborator(repo_name, username)
+    client.remove_collaborator(repo_name, username)
+  end
+
+  def repository?(repo_name)
+    client.repository?(repo_name)
+  rescue Octokit::Unauthorized
+    false
+  end
+
+  private
+
+  def client
+    @_client ||= Octokit::Client.new(access_token: token, auto_paginate: true)
+  end
+
+  def create_status(repo:, sha:, state:, description:, target_url: nil)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Long-Parameter-List.md" target="_blank"><b>LongParameterList</b></a>        </span>      </div>      <span>GitHubApi#create_status has 5 parameters</span>          </div>  </li></ol>
+    client.create_status(
+      repo,
+      sha,
+      state,
+      context: &quot;Hound&quot;,
+      description: description,
+      target_url: target_url
+    )
+  end
+
+  def find_invitation_for_repo(repo_name)
+    invitations = client.user_repository_invitations(
+      accept: &quot;application/vnd.github.swamp-thing-preview&quot;,
+    )
+    invitations.detect do |invitation|
+      invitation.repository.full_name == repo_name
+    end
+  end
+
+  def accept_repository_invitation(invitation)
+    response = client.accept_repository_invitation(
+      invitation.id,
+      accept: &quot;application/vnd.github.swamp-thing-preview&quot;,
+    )
+    response == &quot;&quot;
+  end
+end
+</code>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Javascripts -->
+    <script src='../assets/javascripts/jquery.min.js'></script>
+    <script src='../assets/javascripts/jquery.tablesorter.min.js'></script>
+    <script src='../assets/javascripts/jquery.scrollTo.min.js'></script>
+    <script src='../assets/javascripts/jquery.timeago.js'></script>
+    <script src='../assets/javascripts/highcharts.src-4.0.1.js'></script>
+    <script src='../assets/javascripts/prettify.js'></script>
+    <script src='../assets/javascripts/bootstrap.min.js'></script>
+    <script src='../assets/javascripts/application.js'></script>
+    <script src='../assets/javascripts/jquery.filtertable.min.js'></script>
+  </body>
+</html>

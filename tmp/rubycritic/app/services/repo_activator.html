@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ruby Critic - Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- StyleSheets -->
+    <link href="../../assets/stylesheets/bootstrap.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/font-awesome.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/prettify.custom_theme.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/application.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <header class="navbar navbar-default navbar-fixed-top">
+      <a href="#menu-toggle" class="btn btn-default hidden-lg visible-sm-* hidden-md visible-xs-* pull-left" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+      <a href="../../overview.html"><img src="../../assets/images/logo.png" title="Ruby Critic Logo" width="55"><span class="logo">RUBYCRITIC</span></a>
+    </header>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <aside id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-item">
+            <a href="../../overview.html" class="project-nav-item overview-nav"><i class="fa fa-dashboard"></i>Overview</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../code_index.html" class="project-nav-item code-index-nav"><i class="fa fa-code"></i>Code</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../smells_index.html" class="project-nav-item smells-index-nav"><i class="fa fa-warning"></i>Smells</a>
+          </li>
+        </ul>
+      </aside>
+      <!-- /#sidebar-wrapper -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+  <!--Page Title -->
+  <div class="Page_Title">
+    <div class="file-time">
+      <span class="committed-at">
+        
+          Updated <time class='js-timeago' datetime='2018-03-25 19:58:10 -0700'>2018-03-25 19:58:10 -0700</time>
+        
+      </span>
+    </div>
+    <div>
+      <h3><small>app/services /</small> repo_activator.rb</h3>
+    </div>
+  </div>
+  <!--End Page Title -->
+  <div class="Content_Wrapper">
+    <!-- code detail -->
+    <div class="code-top-detail clearfix row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="rating b big">
+              B
+            </div>
+          </div>
+          <div class="code-statistics col-md-11">
+            <div class="col-md-3">
+              <div><span class="metric">99</span><small> lines of codes</small></div>
+              <div><span class="metric">15</span><small> methods</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">5.9</span><small> complexity/method</small></div>
+              <div><span class="metric">37</span><small> churn</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">88.5</span><small> complexity</small></div>
+              <div><span class="metric">0</span><small> duplications</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="code-tabs">
+          <ul class="nav nav-pills right-to-left">
+            <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
+            <li class="active">
+              <a href="#" id="toggle-smells" class="toggle-button button">
+                2
+                smells
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <code class="prettyprint linenums lang-ruby file-code js-file-code">class RepoActivator<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md" target="_blank"><b>IrresponsibleModule</b></a>        </span>      </div>      <span>RepoActivator has no descriptive comment</span>          </div>  </li></ol>
+  attr_reader :errors
+
+  def initialize(github_token:, repo:)
+    @github_token = github_token
+    @repo = repo
+    @errors = []
+  end
+
+  def activate
+    change_repository_state_quietly do
+      if repo.private?
+        add_hound_to_repo
+      end
+
+      create_webhook &amp;&amp; repo.activate
+    end
+  end
+
+  def deactivate
+    if skip_github?
+      repo.deactivate
+    else
+      deactivate_with_github
+    end
+  end
+
+  private
+
+  attr_reader :github_token, :repo
+
+  def change_repository_state_quietly
+    yield
+  rescue Octokit::Error =&gt; error
+    add_error(error)
+    Raven.capture_exception(error)
+    false
+  end
+
+  def skip_github?
+    repo.subscription.present? &amp;&amp; missing_membership?
+  end
+
+  def missing_membership?
+    Membership.where(repo: repo, user: repo.subscription.user).empty?
+  end
+
+  def deactivate_with_github
+    change_repository_state_quietly do
+      if repo.private?
+        remove_hound_from_repo
+      end
+
+      delete_webhook &amp;&amp; repo.deactivate
+    end
+  end
+
+  def remove_hound_from_repo
+    github.remove_collaborator(repo.name, Hound::GITHUB_USERNAME)
+  end
+
+  def add_hound_to_repo
+    github.add_collaborator(repo.name, Hound::GITHUB_USERNAME)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>RepoActivator#add_hound_to_repo calls 'repo.name' 2 times</span>              <span>Locations:</span>                  <a href="repo_activator.html#L63" class="js-smell-location">0</a>                  <a href="repo_activator.html#L64" class="js-smell-location">1</a>                  </div>  </li></ol>
+    AcceptGitHubInvitationJob.perform_later(repo.name)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Duplicate-Method-Call.md" target="_blank"><b>DuplicateMethodCall</b></a>        </span>      </div>      <span>RepoActivator#add_hound_to_repo calls 'repo.name' 2 times</span>              <span>Locations:</span>                  <a href="repo_activator.html#L63" class="js-smell-location">0</a>                  <a href="repo_activator.html#L64" class="js-smell-location">1</a>                  </div>  </li></ol>
+  end
+
+  def github
+    @github ||= GitHubApi.new(github_token)
+  end
+
+  def create_webhook
+    github.create_hook(repo.name, builds_url) do |hook|
+      repo.update(hook_id: hook.id)
+    end
+  end
+
+  def delete_webhook
+    github.remove_hook(repo.name, repo.hook_id) do
+      repo.update(hook_id: nil)
+    end
+  end
+
+  def builds_url
+    URI.join(&quot;#{protocol}://#{Hound::HOST}&quot;, &quot;builds&quot;).to_s
+  end
+
+  def protocol
+    if Hound::HTTPS_ENABLED
+      &quot;https&quot;
+    else
+      &quot;http&quot;
+    end
+  end
+
+  def add_error(error)
+    error_message = ErrorMessageTranslation.from_error_response(error)
+    errors.push(error_message).compact!
+  end
+end
+</code>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Javascripts -->
+    <script src='../../assets/javascripts/jquery.min.js'></script>
+    <script src='../../assets/javascripts/jquery.tablesorter.min.js'></script>
+    <script src='../../assets/javascripts/jquery.scrollTo.min.js'></script>
+    <script src='../../assets/javascripts/jquery.timeago.js'></script>
+    <script src='../../assets/javascripts/highcharts.src-4.0.1.js'></script>
+    <script src='../../assets/javascripts/prettify.js'></script>
+    <script src='../../assets/javascripts/bootstrap.min.js'></script>
+    <script src='../../assets/javascripts/application.js'></script>
+    <script src='../../assets/javascripts/jquery.filtertable.min.js'></script>
+  </body>
+</html>
