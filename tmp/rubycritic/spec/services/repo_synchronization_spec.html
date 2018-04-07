@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ruby Critic - Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- StyleSheets -->
+    <link href="../../assets/stylesheets/bootstrap.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/font-awesome.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/prettify.custom_theme.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/application.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <header class="navbar navbar-default navbar-fixed-top">
+      <a href="#menu-toggle" class="btn btn-default hidden-lg visible-sm-* hidden-md visible-xs-* pull-left" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+      <a href="../../overview.html"><img src="../../assets/images/logo.png" title="Ruby Critic Logo" width="55"><span class="logo">RUBYCRITIC</span></a>
+    </header>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <aside id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-item">
+            <a href="../../overview.html" class="project-nav-item overview-nav"><i class="fa fa-dashboard"></i>Overview</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../code_index.html" class="project-nav-item code-index-nav"><i class="fa fa-code"></i>Code</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../smells_index.html" class="project-nav-item smells-index-nav"><i class="fa fa-warning"></i>Smells</a>
+          </li>
+        </ul>
+      </aside>
+      <!-- /#sidebar-wrapper -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+  <!--Page Title -->
+  <div class="Page_Title">
+    <div class="file-time">
+      <span class="committed-at">
+        
+          Updated <time class='js-timeago' datetime='2018-03-17 23:32:15 -0400'>2018-03-17 23:32:15 -0400</time>
+        
+      </span>
+    </div>
+    <div>
+      <h3><small>spec/services /</small> repo_synchronization_spec.rb</h3>
+    </div>
+  </div>
+  <!--End Page Title -->
+  <div class="Content_Wrapper">
+    <!-- code detail -->
+    <div class="code-top-detail clearfix row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="rating d big">
+              D
+            </div>
+          </div>
+          <div class="code-statistics col-md-11">
+            <div class="col-md-3">
+              <div><span class="metric">190</span><small> lines of codes</small></div>
+              <div><span class="metric">2</span><small> methods</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">137.9</span><small> complexity/method</small></div>
+              <div><span class="metric">20</span><small> churn</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">275.76</span><small> complexity</small></div>
+              <div><span class="metric">52</span><small> duplications</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="code-tabs">
+          <ul class="nav nav-pills right-to-left">
+            <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
+            <li class="active">
+              <a href="#" id="toggle-smells" class="toggle-button button">
+                9
+                smells
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <code class="prettyprint linenums lang-ruby file-code js-file-code">require &quot;rails_helper&quot;
+
+describe RepoSynchronization do
+  describe &quot;#start&quot; do
+    it &quot;saves privacy flag&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="repo_synchronization_spec.html#L5" class="js-smell-location">0</a>                  <a href="repo_synchronization_spec.html#L15" class="js-smell-location">1</a>                  </div>  </li></ol>
+      stub_github_api_repos(repo_id: 456, repo_name: &quot;user/newrepo&quot;)
+      user = create(:user)
+      synchronization = RepoSynchronization.new(user)
+
+      synchronization.start
+
+      expect(user.reload.repos.first).to be_private
+    end
+
+    it &quot;saves organization flag&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="repo_synchronization_spec.html#L5" class="js-smell-location">0</a>                  <a href="repo_synchronization_spec.html#L15" class="js-smell-location">1</a>                  </div>  </li></ol>
+      stub_github_api_repos(repo_id: 456, repo_name: &quot;user/newrepo&quot;)
+      user = create(:user)
+      synchronization = RepoSynchronization.new(user)
+
+      synchronization.start
+
+      expect(user.reload.repos.first).to be_in_organization
+    end
+
+    context &quot;when there is an &#39;ActiveRecord::RecordNotUnique&#39; exception&quot; do
+      it &quot;finishes the synchronization&quot; do
+        repo = stub_github_api_repos(repo_id: 456, repo_name: &quot;user/newrepo&quot;)
+        user = create(:user)
+        synchronization = RepoSynchronization.new(user)
+        allow(synchronization).to receive(:repo_attributes).
+          and_raise(ActiveRecord::RecordNotUnique)
+
+        result = synchronization.start
+
+        expect(result).to eq [repo]
+      end
+    end
+
+    context &quot;when the user is a repo admin&quot; do
+      it &quot;the memberships admin flag is true&quot; do
+        stub_github_api_repos(
+          repo_id: 456,
+          repo_name: &quot;user/newrepo&quot;,
+          admin: true,
+        )
+        user = create(:user)
+        synchronization = RepoSynchronization.new(user)
+
+        synchronization.start
+
+        expect(user.memberships.first).to be_admin
+      end
+    end
+
+    context &quot;when the user is not a repo admin&quot; do
+      it &quot;the membership admin flag is false&quot; do
+        stub_github_api_repos(
+          repo_id: 456,
+          repo_name: &quot;user/newrepo&quot;,
+          admin: false,
+        )
+        user = create(:user)
+        synchronization = RepoSynchronization.new(user)
+
+        synchronization.start
+
+        expect(user.memberships.first).not_to be_admin
+      end
+    end
+
+    it &quot;replaces existing repos&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>describe(#start)::it#replaces existing repos has a flog score of 41</span>          </div>  </li></ol>
+      stub_github_api_repos(repo_id: 456, repo_name: &quot;user/newrepo&quot;)
+      membership = create(:membership)
+      user = membership.user
+      synchronization = RepoSynchronization.new(user)
+
+      synchronization.start
+
+      user.reload
+      expect(user.repos.size).to eq(1)
+      expect(user.repos.first.name).to eq &quot;user/newrepo&quot;
+      expect(user.repos.first.github_id).to eq 456
+    end
+
+    context &quot;when repo was renamed to an existing repo&quot; do
+      it &quot;updates the repo names&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>describe(#start)::context(when repo was renamed to an existing repo)::it#updates the repo names has a flog score of 40</span>          </div>  </li></ol>
+        user = create(:user)
+        repo1 = create(:repo, name: &quot;main&quot;)
+        repo2 = create(:repo, name: &quot;backup&quot;)
+        create(:membership, user: user, repo: repo1)
+        create(:membership, user: user, repo: repo2)
+        github_repo1 = build_github_repo(id: repo1.github_id, name: &quot;backup&quot;)
+        github_repo2 = build_github_repo(id: repo2.github_id, name: &quot;site&quot;)
+        api = instance_double(&quot;GitHubApi&quot;, repos: [github_repo1, github_repo2])
+        allow(GitHubApi).to receive(:new).and_return(api)
+        synchronization = RepoSynchronization.new(user)
+
+        synchronization.start
+
+        user.reload
+        expect(user.repos.pluck(:id, :name)).to match_array [
+          [repo1.id, &quot;backup&quot;],
+          [repo2.id, &quot;site&quot;],
+        ]
+      end
+    end
+
+    context &quot;when a repo membership already exists&quot; do
+      it &quot;creates another membership&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>describe(#start)::context(when a repo membership already exists)::it#creates another membership has a flog score of 25</span>          </div>  </li></ol>
+        first_membership = create(:membership)
+        repo = first_membership.repo
+        stub_github_api_repos(repo_id: repo.github_id, repo_name: repo.name)
+        second_user = create(:user)
+        synchronization = RepoSynchronization.new(second_user)
+
+        synchronization.start
+
+        expect(second_user.reload.repos.size).to eq(1)
+      end
+    end
+
+    describe &quot;repo owners&quot; do
+      context &quot;when the owner doesn&#39;t exist&quot; do
+        it &quot;creates and associates an owner to the repo&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>describe(#start)::describe(repo owners)::context(when the owner doesn't exist)::it#creates and associates an owner to the repo has a flog score of 30</span>          </div>  </li></ol>
+          user = create(:user)
+          owner_github_id = 1234
+          repo_github_id = 321
+          stub_github_api_repos(
+            repo_id: repo_github_id,
+            repo_name: &quot;foo/bar&quot;,
+            owner_id: owner_github_id,
+          )
+          synchronization = RepoSynchronization.new(user)
+
+          synchronization.start
+
+          owner = Owner.find_by(github_id: owner_github_id)
+          expect(owner.name).to eq(&quot;thoughtbot&quot;)
+          expect(owner.repos.map(&amp;:github_id)).to eq([repo_github_id])
+        end
+      end
+
+      context &quot;when the owner exists&quot; do
+        it &quot;updates and associates an owner to the repo&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>describe(#start)::describe(repo owners)::context(when the owner exists)::it#updates and associates an owner to the repo has a flog score of 28</span>          </div>  </li></ol>
+          owner = create(:owner)
+          user = create(:user)
+          repo_github_id = 321
+          stub_github_api_repos(
+            repo_id: repo_github_id,
+            repo_name: &quot;foo/bar&quot;,
+            owner_id: owner.github_id,
+          )
+          synchronization = RepoSynchronization.new(user)
+
+          synchronization.start
+
+          owner = Owner.find_by(github_id: owner.github_id)
+          expect(owner.repos.map(&amp;:github_id)).to eq([repo_github_id])
+        end
+      end
+    end
+
+    def stub_github_api_repos(repo_name:, repo_id:, owner_id: 1, admin: false)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Boolean-Parameter.md" target="_blank"><b>BooleanParameter</b></a>        </span>      </div>      <span>stub_github_api_repos has boolean parameter 'admin'</span>          </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Long-Parameter-List.md" target="_blank"><b>LongParameterList</b></a>        </span>      </div>      <span>stub_github_api_repos has 4 parameters</span>          </div>  </li>  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>stub_github_api_repos has approx 6 statements</span>          </div>  </li></ol>
+      repo = build_github_repo(id: repo_id, name: repo_name)
+      repo[:owner][:id] = owner_id
+      repo[:permissions][:admin] = admin
+
+      api = double(&quot;GitHubApi&quot;, repos: [repo])
+      allow(GitHubApi).to receive(:new).and_return(api)
+
+      repo
+    end
+
+    def build_github_repo(id:, name:)
+      {
+        full_name: name,
+        id: id,
+        private: true,
+        owner: {
+          id: 123,
+          login: &quot;thoughtbot&quot;,
+          type: &quot;Organization&quot;,
+        },
+        permissions: {
+          admin: false,
+        },
+      }
+    end
+  end
+end
+</code>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Javascripts -->
+    <script src='../../assets/javascripts/jquery.min.js'></script>
+    <script src='../../assets/javascripts/jquery.tablesorter.min.js'></script>
+    <script src='../../assets/javascripts/jquery.scrollTo.min.js'></script>
+    <script src='../../assets/javascripts/jquery.timeago.js'></script>
+    <script src='../../assets/javascripts/highcharts.src-4.0.1.js'></script>
+    <script src='../../assets/javascripts/prettify.js'></script>
+    <script src='../../assets/javascripts/bootstrap.min.js'></script>
+    <script src='../../assets/javascripts/application.js'></script>
+    <script src='../../assets/javascripts/jquery.filtertable.min.js'></script>
+  </body>
+</html>
