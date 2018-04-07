@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ruby Critic - Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- StyleSheets -->
+    <link href="../../assets/stylesheets/bootstrap.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/font-awesome.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/prettify.custom_theme.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/application.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <header class="navbar navbar-default navbar-fixed-top">
+      <a href="#menu-toggle" class="btn btn-default hidden-lg visible-sm-* hidden-md visible-xs-* pull-left" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+      <a href="../../overview.html"><img src="../../assets/images/logo.png" title="Ruby Critic Logo" width="55"><span class="logo">RUBYCRITIC</span></a>
+    </header>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <aside id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-item">
+            <a href="../../overview.html" class="project-nav-item overview-nav"><i class="fa fa-dashboard"></i>Overview</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../code_index.html" class="project-nav-item code-index-nav"><i class="fa fa-code"></i>Code</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../smells_index.html" class="project-nav-item smells-index-nav"><i class="fa fa-warning"></i>Smells</a>
+          </li>
+        </ul>
+      </aside>
+      <!-- /#sidebar-wrapper -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+  <!--Page Title -->
+  <div class="Page_Title">
+    <div class="file-time">
+      <span class="committed-at">
+        
+          Updated <time class='js-timeago' datetime='2018-01-29 22:04:46 -0600'>2018-01-29 22:04:46 -0600</time>
+        
+      </span>
+    </div>
+    <div>
+      <h3><small>db/migrate /</small> 20150526214750_associate_violations_with_file_reviews.rb</h3>
+    </div>
+  </div>
+  <!--End Page Title -->
+  <div class="Content_Wrapper">
+    <!-- code detail -->
+    <div class="code-top-detail clearfix row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="rating a big">
+              A
+            </div>
+          </div>
+          <div class="code-statistics col-md-11">
+            <div class="col-md-3">
+              <div><span class="metric">92</span><small> lines of codes</small></div>
+              <div><span class="metric">4</span><small> methods</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">4.8</span><small> complexity/method</small></div>
+              <div><span class="metric">2</span><small> churn</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">19.0</span><small> complexity</small></div>
+              <div><span class="metric">0</span><small> duplications</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="code-tabs">
+          <ul class="nav nav-pills right-to-left">
+            <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
+            <li class="active">
+              <a href="#" id="toggle-smells" class="toggle-button button">
+                5
+                smells
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <code class="prettyprint linenums lang-ruby file-code js-file-code">class AssociateViolationsWithFileReviews &lt; ActiveRecord::Migration[4.2]<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md" target="_blank"><b>IrresponsibleModule</b></a>        </span>      </div>      <span>AssociateViolationsWithFileReviews has no descriptive comment</span>          </div>  </li></ol>
+  class Violation &lt; ActiveRecord::Base<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md" target="_blank"><b>IrresponsibleModule</b></a>        </span>      </div>      <span>AssociateViolationsWithFileReviews::Violation has no descriptive comment</span>          </div>  </li></ol>
+    belongs_to :file_review
+  end
+  class FileReview &lt; ActiveRecord::Base; end<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md" target="_blank"><b>IrresponsibleModule</b></a>        </span>      </div>      <span>AssociateViolationsWithFileReviews::FileReview has no descriptive comment</span>          </div>  </li></ol>
+
+  def up<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>AssociateViolationsWithFileReviews#up has approx 8 statements</span>          </div>  </li></ol>
+    add_column :file_reviews, :filename, :string, null: false
+    add_column :violations, :file_review_id, :integer
+
+    associate_violations_with_file_reviews
+
+    change_column_null :violations, :file_review_id, false
+    remove_column :violations, :build_id
+    remove_column :violations, :filename
+
+    add_index :violations, :file_review_id
+    add_foreign_key :violations, :file_reviews, on_delete: :cascade
+  end
+
+  def down<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Too-Many-Statements.md" target="_blank"><b>TooManyStatements</b></a>        </span>      </div>      <span>AssociateViolationsWithFileReviews#down has approx 8 statements</span>          </div>  </li></ol>
+    add_column :violations, :build_id, :integer
+    add_column :violations, :filename, :string
+
+    associate_violations_with_builds
+
+    change_column_null :violations, :build_id, false
+    change_column_null :violations, :filename, false
+    remove_column :violations, :file_review_id
+    remove_column :file_reviews, :filename, :string, null: false
+
+    truncate :file_reviews
+  end
+
+  private
+
+  def associate_violations_with_file_reviews
+    execute &lt;&lt;-CREATE_FILE_REVIEWS
+      INSERT INTO file_reviews (
+        build_id,
+        filename,
+        completed_at,
+        created_at,
+        updated_at
+      )
+      WITH
+      build_files AS (
+        SELECT DISTINCT
+          build_id,
+          filename
+        FROM
+          violations
+      )
+      SELECT
+        build_id,
+        filename,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP
+      FROM
+        build_files
+    CREATE_FILE_REVIEWS
+
+    execute &lt;&lt;-ASSOCIATE_VIOLATIONS_TO_FILE_REVIEWS
+      UPDATE
+        violations
+      SET
+        file_review_id = file_reviews.id,
+        updated_at = CURRENT_TIMESTAMP
+      FROM
+        file_reviews
+      WHERE
+        file_reviews.build_id = violations.build_id AND
+        file_reviews.filename = violations.filename
+    ASSOCIATE_VIOLATIONS_TO_FILE_REVIEWS
+  end
+
+  def associate_violations_with_builds
+    execute &lt;&lt;-ASSOCIATE_VIOLATIONS_TO_BUILDS
+      UPDATE
+        violations
+      SET
+        build_id = file_reviews.build_id,
+        filename = file_reviews.filename,
+        updated_at = CURRENT_TIMESTAMP
+      FROM
+        file_reviews
+      WHERE
+        file_reviews.id = violations.file_review_id
+    ASSOCIATE_VIOLATIONS_TO_BUILDS
+  end
+end
+</code>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Javascripts -->
+    <script src='../../assets/javascripts/jquery.min.js'></script>
+    <script src='../../assets/javascripts/jquery.tablesorter.min.js'></script>
+    <script src='../../assets/javascripts/jquery.scrollTo.min.js'></script>
+    <script src='../../assets/javascripts/jquery.timeago.js'></script>
+    <script src='../../assets/javascripts/highcharts.src-4.0.1.js'></script>
+    <script src='../../assets/javascripts/prettify.js'></script>
+    <script src='../../assets/javascripts/bootstrap.min.js'></script>
+    <script src='../../assets/javascripts/application.js'></script>
+    <script src='../../assets/javascripts/jquery.filtertable.min.js'></script>
+  </body>
+</html>
