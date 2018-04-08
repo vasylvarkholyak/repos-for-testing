@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ruby Critic - Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- StyleSheets -->
+    <link href="../../../assets/stylesheets/bootstrap.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../../assets/stylesheets/font-awesome.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../../assets/stylesheets/prettify.custom_theme.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../../assets/stylesheets/application.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <header class="navbar navbar-default navbar-fixed-top">
+      <a href="#menu-toggle" class="btn btn-default hidden-lg visible-sm-* hidden-md visible-xs-* pull-left" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+      <a href="../../../overview.html"><img src="../../../assets/images/logo.png" title="Ruby Critic Logo" width="55"><span class="logo">RUBYCRITIC</span></a>
+    </header>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <aside id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-item">
+            <a href="../../../overview.html" class="project-nav-item overview-nav"><i class="fa fa-dashboard"></i>Overview</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../../code_index.html" class="project-nav-item code-index-nav"><i class="fa fa-code"></i>Code</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../../smells_index.html" class="project-nav-item smells-index-nav"><i class="fa fa-warning"></i>Smells</a>
+          </li>
+        </ul>
+      </aside>
+      <!-- /#sidebar-wrapper -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+  <!--Page Title -->
+  <div class="Page_Title">
+    <div class="file-time">
+      <span class="committed-at">
+        
+          Updated <time class='js-timeago' datetime='2018-04-02 21:24:53 -0700'>2018-04-02 21:24:53 -0700</time>
+        
+      </span>
+    </div>
+    <div>
+      <h3><small>spec/support/helpers /</small> github_api_helper.rb</h3>
+    </div>
+  </div>
+  <!--End Page Title -->
+  <div class="Content_Wrapper">
+    <!-- code detail -->
+    <div class="code-top-detail clearfix row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="rating c big">
+              C
+            </div>
+          </div>
+          <div class="code-statistics col-md-11">
+            <div class="col-md-3">
+              <div><span class="metric">202</span><small> lines of codes</small></div>
+              <div><span class="metric">16</span><small> methods</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">5.1</span><small> complexity/method</small></div>
+              <div><span class="metric">70</span><small> churn</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">80.92</span><small> complexity</small></div>
+              <div><span class="metric">104</span><small> duplications</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="code-tabs">
+          <ul class="nav nav-pills right-to-left">
+            <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
+            <li class="active">
+              <a href="#" id="toggle-smells" class="toggle-button button">
+                6
+                smells
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <code class="prettyprint linenums lang-ruby file-code js-file-code">module GitHubApiHelper<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Irresponsible-Module.md" target="_blank"><b>IrresponsibleModule</b></a>        </span>      </div>      <span>GitHubApiHelper has no descriptive comment</span>          </div>  </li></ol>
+  def stub_add_collaborator_request(username, repo_name, user_token)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="github_api_helper.html#L2" class="js-smell-location">0</a>                  <a href="github_api_helper.html#L13" class="js-smell-location">1</a>                  </div>  </li></ol>
+    stub_request(
+      :put,
+      &quot;https://api.github.com/repos/#{repo_name}/collaborators/#{username}&quot;
+    ).with(
+      headers: { &quot;Authorization&quot; =&gt; &quot;token #{user_token}&quot; }
+    ).to_return(
+      status: 204,
+    )
+  end
+
+  def stub_remove_collaborator_request(username, repo_name, user_token)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="github_api_helper.html#L2" class="js-smell-location">0</a>                  <a href="github_api_helper.html#L13" class="js-smell-location">1</a>                  </div>  </li></ol>
+    stub_request(
+      :delete,
+      &quot;https://api.github.com/repos/#{repo_name}/collaborators/#{username}&quot;
+    ).with(
+      headers: { &quot;Authorization&quot; =&gt; &quot;token #{user_token}&quot; }
+    ).to_return(
+      status: 204,
+    )
+  end
+
+  def stub_hook_creation_request(full_repo_name, callback_endpoint, token)
+    stub_request(
+      :post,
+      &quot;https://api.github.com/repos/#{full_repo_name}/hooks&quot;
+    ).with(
+      body: %({&quot;name&quot;:&quot;web&quot;,&quot;config&quot;:{&quot;url&quot;:&quot;#{callback_endpoint}&quot;},&quot;events&quot;:[&quot;pull_request&quot;],&quot;active&quot;:true}),
+      headers: { &quot;Authorization&quot; =&gt; &quot;token #{token}&quot; }
+    ).to_return(
+      status: 200,
+      body: read_fixture(&quot;github_hook_creation_response.json&quot;),
+      headers: { &#39;Content-Type&#39; =&gt; &#39;application/json; charset=utf-8&#39; }
+    )
+  end
+
+  def stub_failed_hook_creation_request(full_repo_name, callback_endpoint)
+    stub_request(
+      :post,
+      &quot;https://api.github.com/repos/#{full_repo_name}/hooks&quot;
+    ).with(
+      body: %({&quot;name&quot;:&quot;web&quot;,&quot;config&quot;:{&quot;url&quot;:&quot;#{callback_endpoint}&quot;},&quot;events&quot;:[&quot;pull_request&quot;],&quot;active&quot;:true}),
+      headers: { &quot;Authorization&quot; =&gt; &quot;token #{hound_token}&quot; }
+    ).to_return(
+      status: 422,
+      body: read_fixture(&quot;failed_hook.json&quot;),
+      headers: { &#39;Content-Type&#39; =&gt; &#39;application/json; charset=utf-8&#39; }
+    )
+  end
+
+  def stub_hook_removal_request(full_repo_name, hook_id)
+    url = &quot;https://api.github.com/repos/#{full_repo_name}/hooks/#{hook_id}&quot;
+    stub_request(:delete, url).
+      with(headers: { &#39;Authorization&#39; =&gt; /^token \w+$/ }).
+      to_return(status: 204)
+  end
+
+  def stub_pull_request_files_request(full_repo_name, pull_request_number)
+    stub_request(
+      :get,
+      &quot;https://api.github.com/repos/#{full_repo_name}/pulls/#{pull_request_number}/files?per_page=100&quot;
+    ).with(
+      headers: { &quot;Authorization&quot; =&gt; &quot;token #{hound_token}&quot; }
+    ).to_return(
+      status: 200,
+      body: read_fixture(&quot;pull_request_files.json&quot;),
+      headers: { &#39;Content-Type&#39; =&gt; &#39;application/json; charset=utf-8&#39; }
+    )
+  end
+
+  def stub_scopes_request(token: &quot;token&quot;, scopes: &quot;public_repo,user:email&quot;)
+    stub_request(:get, &quot;https://api.github.com/user&quot;).
+      with(
+        headers: {
+          &quot;Accept&quot; =&gt; &quot;application/vnd.github.v3+json&quot;,
+          &quot;Authorization&quot; =&gt; &quot;token #{token}&quot;,
+          &quot;Content-Type&quot; =&gt; &quot;application/json&quot;,
+        }
+      ).
+      to_return(
+        status: 200, body: &quot;&quot;, headers: { &quot;X-OAuth-Scopes&quot; =&gt; scopes }
+      )
+  end
+
+  def stub_repos_requests(token)
+    repos_url = &quot;https://api.github.com/user/repos&quot;
+
+    stub_request(<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="github_api_helper.html#L89" class="js-smell-location">0</a>                  <a href="github_api_helper.html#L103" class="js-smell-location">1</a>                  </div>  </li></ol>
+      :get,
+      &quot;#{repos_url}?per_page=100&quot;
+    ).with(
+      headers: { &quot;Authorization&quot; =&gt; &quot;token #{token}&quot; }
+    ).to_return(
+      status: 200,
+      body: read_fixture(&quot;github_repos_response_for_jimtom.json&quot;),
+      headers: {
+        &quot;Link&quot; =&gt; %(&lt;#{repos_url}?page=2&amp;per_page=100&gt;; rel=&quot;next&quot;),
+        &quot;Content-Type&quot; =&gt; &quot;application/json; charset=utf-8&quot;,
+      }
+    )
+
+    stub_request(<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="github_api_helper.html#L89" class="js-smell-location">0</a>                  <a href="github_api_helper.html#L103" class="js-smell-location">1</a>                  </div>  </li></ol>
+      :get,
+      &quot;#{repos_url}?page=2&amp;per_page=100&quot;
+    ).with(
+      headers: { &quot;Authorization&quot; =&gt; &quot;token #{token}&quot; }
+    ).to_return(
+      status: 200,
+      body: read_fixture(&quot;github_repos_response_for_jimtom_page2.json&quot;),
+      headers: {
+        &quot;Link&quot; =&gt; %(&lt;#{repos_url}?page=3&amp;per_page=100&gt;; rel=&quot;next&quot;),
+        &quot;Content-Type&quot; =&gt; &quot;application/json; charset=utf-8&quot;,
+      }
+    )
+
+    stub_request(
+      :get,
+      &quot;#{repos_url}?page=3&amp;per_page=100&quot;
+    ).with(
+      headers: { &quot;Authorization&quot; =&gt; &quot;token #{token}&quot; }
+    ).to_return(
+      status: 200,
+      body: &#39;[]&#39;,
+      headers: { &#39;Content-Type&#39; =&gt; &#39;application/json; charset=utf-8&#39; }
+    )
+  end
+
+  def stub_review_request(repo_name, pr_number, comments, body)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Long-Parameter-List.md" target="_blank"><b>LongParameterList</b></a>        </span>      </div>      <span>GitHubApiHelper#stub_review_request has 4 parameters</span>          </div>  </li></ol>
+    url = &quot;https://api.github.com/repos/#{repo_name}/pulls/#{pr_number}/reviews&quot;
+
+    stub_request(:post, url).
+      with(body: { event: &quot;COMMENT&quot;, body: body, comments: comments }.to_json).
+      to_return(status: 200)
+  end
+
+  def stub_pull_request_comments_request(
+    full_repo_name,
+    pull_request_number,
+    username
+  )
+    comments_body = read_fixture(&quot;pull_request_comments.json&quot;).
+      gsub(&quot;the_hound_user&quot;, username)
+    url = &quot;https://api.github.com/repos/#{full_repo_name}/pulls/&quot; +
+      &quot;#{pull_request_number}/comments&quot;
+    headers = { &quot;Content-Type&quot; =&gt; &quot;application/json; charset=utf-8&quot; }
+
+    stub_request(:get, &quot;#{url}?per_page=100&quot;).
+      with(headers: { &quot;Authorization&quot; =&gt; &quot;token #{hound_token}&quot; }).
+      to_return(status: 200, body: comments_body, headers: headers.merge(
+        &quot;Link&quot; =&gt; %(&lt;#{url}?page=2&amp;per_page=100&gt;; rel=&quot;next&quot;),
+      ))
+    stub_request(:get, &quot;#{url}?page=2&amp;per_page=100&quot;).
+      to_return(status: 200, body: &quot;[]&quot;, headers: headers)
+  end
+
+  def stub_status_request(repo_name, sha, state, description, target_url = nil)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Long-Parameter-List.md" target="_blank"><b>LongParameterList</b></a>        </span>      </div>      <span>GitHubApiHelper#stub_status_request has 5 parameters</span>          </div>  </li></ol>
+    stub_request(
+      :post,
+      &quot;https://api.github.com/repos/#{repo_name}/statuses/#{sha}&quot;,
+    ).with(
+      headers: { &quot;Authorization&quot; =&gt; &quot;token #{hound_token}&quot; },
+      body: status_request_body(description, state, target_url),
+    ).to_return(status_request_return_value)
+  end
+
+  def stub_repository_invitations(repo_name)
+    url = &quot;https://api.github.com/user/repository_invitations?per_page=100&quot;
+    stub_request(:get, url).
+      to_return(
+        headers: { &quot;Content-Type&quot; =&gt; &quot;application/json; charset=utf-8&quot; },
+        body: [{ id: 1234, repository: { full_name: repo_name } }].to_json,
+      )
+  end
+
+  private
+
+  def status_request_return_value
+    {
+      status: 201,
+      body: read_fixture(&quot;github_status_response.json&quot;),
+      headers: { &quot;Content-Type&quot; =&gt; &quot;application/json; charset=utf-8&quot; },
+    }
+  end
+
+  def status_request_body(description, state, target_url)
+    {
+      context: &quot;Hound&quot;,
+      description: description,
+      state: state,
+      target_url: target_url,
+    }
+  end
+
+  def read_fixture(filename)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Utility-Function.md" target="_blank"><b>UtilityFunction</b></a>        </span>      </div>      <span>GitHubApiHelper#read_fixture doesn't depend on instance state (maybe move it to another class?)</span>          </div>  </li></ol>
+    File.read(File.join(&quot;spec&quot;, &quot;support&quot;, &quot;fixtures&quot;, filename))
+  end
+
+  def hound_token
+    Hound::GITHUB_TOKEN
+  end
+end
+</code>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Javascripts -->
+    <script src='../../../assets/javascripts/jquery.min.js'></script>
+    <script src='../../../assets/javascripts/jquery.tablesorter.min.js'></script>
+    <script src='../../../assets/javascripts/jquery.scrollTo.min.js'></script>
+    <script src='../../../assets/javascripts/jquery.timeago.js'></script>
+    <script src='../../../assets/javascripts/highcharts.src-4.0.1.js'></script>
+    <script src='../../../assets/javascripts/prettify.js'></script>
+    <script src='../../../assets/javascripts/bootstrap.min.js'></script>
+    <script src='../../../assets/javascripts/application.js'></script>
+    <script src='../../../assets/javascripts/jquery.filtertable.min.js'></script>
+  </body>
+</html>

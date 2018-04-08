@@ -1,32 +1,30 @@
-# frozen_string_literal: true
+module Admin
+  class ApplicationController < Administrate::ApplicationController
+    before_action :authenticate_admin
 
-# Copyright (c) 2008-2013 Michael Dvorkin and contributors.
-#
-# Fat Free CRM is freely distributable under the terms of MIT license.
-# See MIT-LICENSE file or http://www.opensource.org/licenses/mit-license.php
-#------------------------------------------------------------------------------
-class Admin::ApplicationController < ApplicationController
-  before_action :require_admin_user
+    helper_method :navigation_resources
 
-  layout "admin/application"
-  helper "admin/field_groups"
+    private
 
-  # Autocomplete handler for all admin controllers.
-  #----------------------------------------------------------------------------
-  def auto_complete
-    @query = params[:term]
-    @auto_complete = klass.text_search(@query).limit(10)
-    render partial: 'auto_complete'
-  end
+    def navigation_resources
+      Administrate::Namespace.new(namespace).resources.select do |resource|
+        DashboardManifest::DASHBOARDS.include?(resource.name)
+      end
+    end
 
-  private
+    def authenticate_admin
+      unless github_admin?
+        redirect_to :root
+      end
+    end
 
-  #----------------------------------------------------------------------------
-  def require_admin_user
-    require_user
-    unless current_user&.admin?
-      flash[:notice] = t(:msg_require_admin)
-      redirect_to root_path
+    def github_admin?
+      current_user &&
+        Hound::ADMIN_GITHUB_USERNAMES.include?(current_user.username)
+    end
+
+    def current_user
+      @current_user ||= User.find_by(remember_token: session[:remember_token])
     end
   end
 end

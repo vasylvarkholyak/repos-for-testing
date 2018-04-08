@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ruby Critic - Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- StyleSheets -->
+    <link href="../../assets/stylesheets/bootstrap.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/font-awesome.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/prettify.custom_theme.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/application.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <header class="navbar navbar-default navbar-fixed-top">
+      <a href="#menu-toggle" class="btn btn-default hidden-lg visible-sm-* hidden-md visible-xs-* pull-left" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+      <a href="../../overview.html"><img src="../../assets/images/logo.png" title="Ruby Critic Logo" width="55"><span class="logo">RUBYCRITIC</span></a>
+    </header>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <aside id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-item">
+            <a href="../../overview.html" class="project-nav-item overview-nav"><i class="fa fa-dashboard"></i>Overview</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../code_index.html" class="project-nav-item code-index-nav"><i class="fa fa-code"></i>Code</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../smells_index.html" class="project-nav-item smells-index-nav"><i class="fa fa-warning"></i>Smells</a>
+          </li>
+        </ul>
+      </aside>
+      <!-- /#sidebar-wrapper -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+  <!--Page Title -->
+  <div class="Page_Title">
+    <div class="file-time">
+      <span class="committed-at">
+        
+          Updated <time class='js-timeago' datetime='2017-05-19 21:57:14 -0700'>2017-05-19 21:57:14 -0700</time>
+        
+      </span>
+    </div>
+    <div>
+      <h3><small>spec/models /</small> user_spec.rb</h3>
+    </div>
+  </div>
+  <!--End Page Title -->
+  <div class="Content_Wrapper">
+    <!-- code detail -->
+    <div class="code-top-detail clearfix row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="rating d big">
+              D
+            </div>
+          </div>
+          <div class="code-statistics col-md-11">
+            <div class="col-md-3">
+              <div><span class="metric">198</span><small> lines of codes</small></div>
+              <div><span class="metric">0</span><small> methods</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">N/A</span><small> complexity/method</small></div>
+              <div><span class="metric">19</span><small> churn</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">286.52</span><small> complexity</small></div>
+              <div><span class="metric">124</span><small> duplications</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="code-tabs">
+          <ul class="nav nav-pills right-to-left">
+            <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
+            <li class="active">
+              <a href="#" id="toggle-smells" class="toggle-button button">
+                3
+                smells
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <code class="prettyprint linenums lang-ruby file-code js-file-code">require &quot;rails_helper&quot;
+
+describe User do
+  it { should have_many(:repos).through(:memberships) }
+  it { should have_many(:subscribed_repos).through(:subscriptions) }
+  it { should validate_presence_of :username }
+  it { should have_many(:memberships).dependent(:destroy) }
+
+  describe &quot;#current_plan&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="user_spec.html#L9" class="js-smell-location">0</a>                  <a href="user_spec.html#L17" class="js-smell-location">1</a>                  </div>  </li></ol>
+    it &quot;returns the current plan&quot; do
+      user = User.new
+
+      expect(user.current_plan).to eq Plan.new(Plan::PLANS[0])
+    end
+  end
+
+  describe &quot;#next_plan&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="user_spec.html#L9" class="js-smell-location">0</a>                  <a href="user_spec.html#L17" class="js-smell-location">1</a>                  </div>  </li></ol>
+    it &quot;returns the next plan&quot; do
+      user = User.new
+
+      expect(user.next_plan).to eq Plan.new(Plan::PLANS[1])
+    end
+  end
+
+  describe &quot;#plan_max&quot; do
+    it &quot;returns the current plan&#39;s allowance&quot; do
+      user = User.new(subscribed_repos: Array.new(5) { Repo.new })
+
+      expect(user.plan_max).to eq Plan::PLANS[2][:range].max
+    end
+  end
+
+  describe &quot;#next_plan_price&quot; do
+    it &quot;returns the price of the next plan&quot; do
+      subscription = create(:subscription)
+      user = subscription.user
+
+      expect(user.next_plan_price).to eq 49
+    end
+  end
+
+  describe &quot;#subscribed_repos&quot; do
+    it &quot;returns subscribed repos&quot; do
+      user = create(:user)
+      _unsubscribed_repo = create(:repo, users: [user])
+      _inactive_subscription = create(:subscription, :inactive, user: user)
+      active_subscription = create(:subscription, user: user)
+
+      repos = user.subscribed_repos
+
+      expect(repos).to eq [active_subscription.repo]
+    end
+  end
+
+  describe &quot;#repos_by_activation_ability&quot; do
+    it &quot;orders active repos with admin permissions first then by name&quot; do
+      repo1 = create(:repo, name: &quot;foo&quot;, active: false)
+      repo2 = create(:repo, name: &quot;bar&quot;, active: false)
+      repo3 = create(:repo, name: &quot;baz&quot;, active: true)
+      user = create(:user)
+      create(:membership, user: user, repo: repo1, admin: false)
+      create(:membership, user: user, repo: repo2, admin: true)
+      create(:membership, user: user, repo: repo3, admin: true)
+
+      results = user.repos_by_activation_ability
+
+      expect(results).to eq [repo3, repo2, repo1]
+    end
+  end
+
+  describe &#39;#create&#39; do
+    it &#39;generates a remember_token&#39; do
+      user = build(:user)
+      allow(SecureRandom).to receive(:hex) { &quot;remembertoken&quot; }
+
+      user.save
+
+      expect(SecureRandom).to have_received(:hex).with(20)
+      expect(user.remember_token).to eq &#39;remembertoken&#39;
+    end
+  end
+
+  describe &quot;#token&quot; do
+    it &quot;generates saves encrypted token in database&quot; do
+      user = build(:user)
+      user.token = &quot;original-token&quot;
+
+      user.save
+
+      expect(user[&quot;token&quot;]).to_not eq(user.token)
+      expect(user[&quot;token&quot;]).to_not eq(&quot;original-token&quot;)
+    end
+
+    it &quot;returns original value of token on call&quot; do
+      user = build(:user)
+      user.token = &quot;original-token&quot;
+
+      user.save
+
+      expect(user.reload.token).to eq(&quot;original-token&quot;)
+    end
+  end
+
+  describe &#39;#to_s&#39; do
+    it &#39;returns GitHub username&#39; do
+      user = build(:user)
+
+      user_string = user.to_s
+
+      expect(user_string).to eq user.username
+    end
+  end
+
+  describe &quot;#active_repos&quot; do
+    it &quot;returns active repos&quot; do
+      user = create(:user)
+      active_repo = create(:repo, :active, users: [user])
+      create(:repo, :inactive, users: [user])
+
+      expect(user.active_repos).to eq([active_repo])
+    end
+  end
+
+  describe &#39;#has_repos_with_missing_information?&#39; do
+    context &#39;with repo without organization info&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="user_spec.html#L125" class="js-smell-location">0</a>                  <a href="user_spec.html#L135" class="js-smell-location">1</a>                  </div>  </li></ol>
+      it &#39;returns true&#39; do
+        user = create(:user)
+        repo = create(:repo, in_organization: nil)
+        user.repos &lt;&lt; repo
+
+        expect(user).to have_repos_with_missing_information
+      end
+    end
+
+    context &#39;with repo without privacy info&#39; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="user_spec.html#L125" class="js-smell-location">0</a>                  <a href="user_spec.html#L135" class="js-smell-location">1</a>                  </div>  </li></ol>
+      it &#39;return true&#39; do
+        user = create(:user)
+        repo = create(:repo, private: nil)
+        user.repos &lt;&lt; repo
+
+        expect(user).to have_repos_with_missing_information
+      end
+    end
+
+    context &#39;with repo without organization and privacy info&#39; do
+      it &#39;returns true&#39; do
+        user = create(:user)
+        repo = create(:repo, in_organization: nil, private: nil)
+        user.repos &lt;&lt; repo
+
+        expect(user).to have_repos_with_missing_information
+      end
+    end
+
+    context &#39;with repo with organization and privacy info&#39; do
+      it &#39;returns false&#39; do
+        user = create(:user)
+        repo = create(:repo, in_organization: true, private: true)
+        user.repos &lt;&lt; repo
+
+        expect(user).not_to have_repos_with_missing_information
+      end
+    end
+  end
+
+  describe &quot;#has_access_to_private_repos?&quot; do
+    context &quot;when token scopes include repo&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="user_spec.html#L167" class="js-smell-location">0</a>                  <a href="user_spec.html#L175" class="js-smell-location">1</a>                  </div>  </li></ol>
+      it &quot;returns true&quot; do
+        user = User.new(token_scopes: &quot;repo,user:email&quot;)
+
+        expect(user).to have_access_to_private_repos
+      end
+    end
+
+    context &quot;when token scopes don&#39;t include repo&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 2 nodes</span>              <span>Locations:</span>                  <a href="user_spec.html#L167" class="js-smell-location">0</a>                  <a href="user_spec.html#L175" class="js-smell-location">1</a>                  </div>  </li></ol>
+      it &quot;returns false&quot; do
+        user = User.new(token_scopes: &quot;public_repo,user:email&quot;)
+
+        expect(user).not_to have_access_to_private_repos
+      end
+    end
+  end
+
+  describe &quot;#payment_gateway_subscription&quot; do
+    it &quot;returns the subscriptions for the payment gateway customer&quot; do
+      subscription = instance_double(&quot;PaymentGatewaySubscription&quot;)
+      customer = instance_double(
+        &quot;PaymentGatewayCustomer&quot;,
+        subscription: subscription,
+      )
+      user = User.new
+      allow(PaymentGatewayCustomer).to receive(:new).once.with(user).
+        and_return(customer)
+
+      expect(user.payment_gateway_subscription).to eq subscription
+    end
+  end
+end
+</code>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Javascripts -->
+    <script src='../../assets/javascripts/jquery.min.js'></script>
+    <script src='../../assets/javascripts/jquery.tablesorter.min.js'></script>
+    <script src='../../assets/javascripts/jquery.scrollTo.min.js'></script>
+    <script src='../../assets/javascripts/jquery.timeago.js'></script>
+    <script src='../../assets/javascripts/highcharts.src-4.0.1.js'></script>
+    <script src='../../assets/javascripts/prettify.js'></script>
+    <script src='../../assets/javascripts/bootstrap.min.js'></script>
+    <script src='../../assets/javascripts/application.js'></script>
+    <script src='../../assets/javascripts/jquery.filtertable.min.js'></script>
+  </body>
+</html>
