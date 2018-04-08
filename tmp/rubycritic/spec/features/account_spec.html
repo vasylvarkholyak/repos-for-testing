@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ruby Critic - Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- StyleSheets -->
+    <link href="../../assets/stylesheets/bootstrap.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/font-awesome.min.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/prettify.custom_theme.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+    <link href="../../assets/stylesheets/application.css" media="screen, projection, print" rel="stylesheet" type="text/css">
+  </head>
+
+  <body>
+    <header class="navbar navbar-default navbar-fixed-top">
+      <a href="#menu-toggle" class="btn btn-default hidden-lg visible-sm-* hidden-md visible-xs-* pull-left" id="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></a>
+      <a href="../../overview.html"><img src="../../assets/images/logo.png" title="Ruby Critic Logo" width="55"><span class="logo">RUBYCRITIC</span></a>
+    </header>
+    <div id="wrapper">
+      <!-- Sidebar -->
+      <aside id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-item">
+            <a href="../../overview.html" class="project-nav-item overview-nav"><i class="fa fa-dashboard"></i>Overview</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../code_index.html" class="project-nav-item code-index-nav"><i class="fa fa-code"></i>Code</a>
+          </li>
+          <li class="sidebar-item">
+            <a href="../../smells_index.html" class="project-nav-item smells-index-nav"><i class="fa fa-warning"></i>Smells</a>
+          </li>
+        </ul>
+      </aside>
+      <!-- /#sidebar-wrapper -->
+      <div id="page-content-wrapper">
+        <div class="container-fluid">
+          <div class="row">
+  <!--Page Title -->
+  <div class="Page_Title">
+    <div class="file-time">
+      <span class="committed-at">
+        
+          Updated <time class='js-timeago' datetime='2017-05-19 21:57:14 -0700'>2017-05-19 21:57:14 -0700</time>
+        
+      </span>
+    </div>
+    <div>
+      <h3><small>spec/features /</small> account_spec.rb</h3>
+    </div>
+  </div>
+  <!--End Page Title -->
+  <div class="Content_Wrapper">
+    <!-- code detail -->
+    <div class="code-top-detail clearfix row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-1">
+            <div class="rating f big">
+              F
+            </div>
+          </div>
+          <div class="code-statistics col-md-11">
+            <div class="col-md-3">
+              <div><span class="metric">205</span><small> lines of codes</small></div>
+              <div><span class="metric">10</span><small> methods</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">34.5</span><small> complexity/method</small></div>
+              <div><span class="metric">17</span><small> churn</small></div>
+            </div>
+            <div class="col-md-3">
+              <div><span class="metric">345.44</span><small> complexity</small></div>
+              <div><span class="metric">240</span><small> duplications</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="code-tabs">
+          <ul class="nav nav-pills right-to-left">
+            <li><a href="#" id="toggle-code" class="toggle-button button">code</a></li>
+            <li class="active">
+              <a href="#" id="toggle-smells" class="toggle-button button">
+                12
+                smells
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <code class="prettyprint linenums lang-ruby file-code js-file-code">require &quot;rails_helper&quot;
+
+feature &quot;Account&quot; do
+  scenario &quot;user without Stripe Customer ID&quot; do
+    user = create(:user, stripe_customer_id: nil)
+
+    sign_in_as(user)
+    visit account_path
+
+    expect(page).not_to have_text(&quot;Update Credit Card&quot;)
+  end
+
+  scenario &quot;user with Stripe Customer ID&quot;, js: true do
+    user = create(:user, stripe_customer_id: &quot;123&quot;)
+    stub_customer_find_request(user.stripe_customer_id)
+
+    sign_in_as(user)
+    visit account_path
+
+    expect(page).to have_text(&quot;Update Credit Card&quot;)
+  end
+
+  scenario &quot;returns a list of all plans&quot;, :js do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>VeryHighComplexity</b></a>        </span>      </div>      <span>feature(Account)::scenario#returns a list of all plans has a flog score of 117</span>          </div>  </li></ol>
+    user = create(:user)
+    sign_in_as(user, &quot;letmein&quot;)
+
+    visit account_path
+
+    plans = page.all(&quot;.plan&quot;)
+    expect(plans.count).to eq 4
+
+    within(plans[0]) do
+      expect(page).to have_text(&quot;CURRENT PLAN&quot;)
+
+      expect(find(&quot;.plan-title&quot;)).to have_text &quot;Hound&quot;
+      expect(find(&quot;.plan-allowance&quot;)).to have_text &quot;Unlimited&quot;
+      expect(find(&quot;.plan-price&quot;)).to have_text &quot;$0 month&quot;
+    end
+
+    within(plans[1]) do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="account_spec.html#L40" class="js-smell-location">0</a>                  <a href="account_spec.html#L46" class="js-smell-location">1</a>                  <a href="account_spec.html#L52" class="js-smell-location">2</a>                  </div>  </li></ol>
+      expect(find(&quot;.plan-title&quot;)).to have_text &quot;Chihuahua&quot;
+      expect(find(&quot;.plan-allowance&quot;)).to have_text &quot;Up to 4 Repos&quot;
+      expect(find(&quot;.plan-price&quot;)).to have_text &quot;$49 month&quot;
+    end
+
+    within(plans[2]) do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="account_spec.html#L40" class="js-smell-location">0</a>                  <a href="account_spec.html#L46" class="js-smell-location">1</a>                  <a href="account_spec.html#L52" class="js-smell-location">2</a>                  </div>  </li></ol>
+      expect(find(&quot;.plan-title&quot;)).to have_text &quot;Labrador&quot;
+      expect(find(&quot;.plan-allowance&quot;)).to have_text &quot;Up to 10 Repos&quot;
+      expect(find(&quot;.plan-price&quot;)).to have_text &quot;$99 month&quot;
+    end
+
+    within(plans[3]) do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="account_spec.html#L40" class="js-smell-location">0</a>                  <a href="account_spec.html#L46" class="js-smell-location">1</a>                  <a href="account_spec.html#L52" class="js-smell-location">2</a>                  </div>  </li></ol>
+      expect(find(&quot;.plan-title&quot;)).to have_text &quot;Great Dane&quot;
+      expect(find(&quot;.plan-allowance&quot;)).to have_text &quot;Up to 30 Repos&quot;
+      expect(find(&quot;.plan-price&quot;)).to have_text &quot;$249 month&quot;
+    end
+  end
+
+  scenario &quot;user with a subscription views account page&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="account_spec.html#L59" class="js-smell-location">0</a>                  <a href="account_spec.html#L80" class="js-smell-location">1</a>                  <a href="account_spec.html#L101" class="js-smell-location">2</a>                  </div>  </li></ol>
+    user = create(:user, stripe_customer_id: stripe_customer_id)
+    create(:subscription, user: user)
+
+    responses = [individual_subscription_response]
+    stub_customer_find_request_with_subscriptions(
+      stripe_customer_id,
+      generate_subscriptions_response(responses),
+    )
+
+    sign_in_as(user)
+    visit account_path
+
+    within(&quot;.itemized-receipt&quot;) do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>feature(Account)::scenario(user with a subscription views account page)::within#.itemized-receipt has a flog score of 28</span>          </div>  </li></ol>
+      expect(page).to have_text(&quot;Chihuahua&quot;)
+      expect(page).to have_text(4)
+      expect(page).to have_text(3)
+      expect(page).to have_text(&quot;$49&quot;)
+    end
+  end
+
+  scenario &quot;user with discounted-amount subscription views account page&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="account_spec.html#L59" class="js-smell-location">0</a>                  <a href="account_spec.html#L80" class="js-smell-location">1</a>                  <a href="account_spec.html#L101" class="js-smell-location">2</a>                  </div>  </li></ol>
+    user = create(:user, stripe_customer_id: stripe_customer_id)
+    create(:subscription, user: user)
+
+    responses = [discounted_amount_subscription_response]
+    stub_customer_find_request_with_subscriptions(
+      stripe_customer_id,
+      generate_subscriptions_response(responses),
+    )
+
+    sign_in_as(user)
+    visit account_path
+
+    within(&quot;.itemized-receipt&quot;) do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>feature(Account)::scenario(user with discounted-amount subscription views account page)::within#.itemized-receipt has a flog score of 28</span>          </div>  </li></ol>
+      expect(page).to have_text(&quot;Chihuahua&quot;)
+      expect(page).to have_text(4)
+      expect(page).to have_text(3)
+      expect(page).to have_text(&quot;$250&quot;)
+    end
+  end
+
+  scenario &quot;user with discounted-percentage subscription views account page&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Similar code found in 3 nodes</span>              <span>Locations:</span>                  <a href="account_spec.html#L59" class="js-smell-location">0</a>                  <a href="account_spec.html#L80" class="js-smell-location">1</a>                  <a href="account_spec.html#L101" class="js-smell-location">2</a>                  </div>  </li></ol>
+    user = create(:user, stripe_customer_id: stripe_customer_id)
+    create(:subscription, user: user)
+
+    responses = [discounted_percent_subscription_response]
+    stub_customer_find_request_with_subscriptions(
+      stripe_customer_id,
+      generate_subscriptions_response(responses),
+    )
+
+    sign_in_as(user)
+    visit account_path
+
+    within(&quot;.itemized-receipt&quot;) do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>feature(Account)::scenario(user with discounted-percentage subscription views account page)::within#.itemized-receipt has a flog score of 28</span>          </div>  </li></ol>
+      expect(page).to have_text(&quot;Chihuahua&quot;)
+      expect(page).to have_text(4)
+      expect(page).to have_text(3)
+      expect(page).to have_text(&quot;$200&quot;)
+    end
+  end
+
+  scenario &quot;user sees paid repo usage&quot; do<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flog/" target="_blank"><b>HighComplexity</b></a>        </span>      </div>      <span>feature(Account)::scenario#user sees paid repo usage has a flog score of 26</span>          </div>  </li></ol>
+    user = create(:user)
+    paid_repo = create(:repo, users: [user])
+    create(:build, repo: paid_repo)
+    create(:build, repo: paid_repo, violations_count: 3)
+    create(:build, repo: paid_repo, violations_count: 2)
+    create(:subscription, repo: paid_repo, user: user)
+
+    sign_in_as(user)
+
+    visit account_path
+
+    expect(find(&quot;td.reviews-given&quot;)).to have_text(&quot;3&quot;)
+    expect(find(&quot;td.violations-caught&quot;)).to have_text(&quot;5&quot;)
+  end
+
+  scenario &quot;user updates their email address&quot;, :js do
+    email_address = &quot;somebody.else@example.com&quot;
+    stub_customer_find_request
+    stub_customer_update_request(email: email_address)
+
+    sign_in_as(create(:user, :stripe))
+    visit account_path
+    user = user_on_page
+    user.update(email_address)
+
+    expect(user).to be_updated
+  end
+
+  private
+
+  def stub_customer_find_request_with_subscriptions(customer_id, subscriptions)
+    stub_request(:get, &quot;#{stripe_base_url}/customers/#{customer_id}&quot;).<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="http://docs.seattlerb.org/flay/" target="_blank"><b>DuplicateCode</b></a>        </span>      </div>      <span>Identical code found in 2 nodes</span>              <span>Locations:</span>                  <a href="account_spec.html#L154" class="js-smell-location">0</a>                  <a href="../support/helpers/stripe_api_helper.html#L24" class="js-smell-location">1</a>                  </div>  </li></ol>
+      with(headers: { &quot;Authorization&quot; =&gt; &quot;Bearer #{ENV[&#39;STRIPE_API_KEY&#39;]}&quot; }).
+      to_return(status: 200, body: merge_customer_subscriptions(subscriptions))
+  end
+
+  def user_on_page<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Utility-Function.md" target="_blank"><b>UtilityFunction</b></a>        </span>      </div>      <span>user_on_page doesn't depend on instance state (maybe move it to another class?)</span>          </div>  </li></ol>
+    UserOnPage.new
+  end
+
+  def generate_subscriptions_response(subscriptions)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Utility-Function.md" target="_blank"><b>UtilityFunction</b></a>        </span>      </div>      <span>generate_subscriptions_response doesn't depend on instance state (maybe move it to another class?)</span>          </div>  </li></ol>
+    {
+      &quot;object&quot; =&gt; &quot;list&quot;,
+      &quot;total_count&quot; =&gt; subscriptions.length,
+      &quot;has_more&quot; =&gt; false,
+      &quot;url&quot; =&gt; &quot;/v1/customers/cus_2e3fqARc1uHtCv/subscriptions&quot;,
+      &quot;data&quot; =&gt; subscriptions,
+    }
+  end
+
+  def discounted_amount_subscription_response
+    read_subscription_fixture(&quot;discounted_amount&quot;)
+  end
+
+  def discounted_percent_subscription_response
+    read_subscription_fixture(&quot;discounted_percent&quot;)
+  end
+
+  def individual_subscription_response
+    read_subscription_fixture(&quot;individual&quot;)
+  end
+
+  def private_subscription_response
+    read_subscription_fixture(&quot;private&quot;)
+  end
+
+  def org_subscription_response
+    read_subscription_fixture(&quot;org&quot;)
+  end
+
+  def read_subscription_fixture(fixture)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Utility-Function.md" target="_blank"><b>UtilityFunction</b></a>        </span>      </div>      <span>read_subscription_fixture doesn't depend on instance state (maybe move it to another class?)</span>          </div>  </li></ol>
+    file_path = &quot;spec/support/fixtures/stripe_#{fixture}_subscription.json&quot;
+    JSON.parse(File.read(file_path))
+  end
+
+  def merge_customer_subscriptions(subscriptions)<ol class="nocode errors smells">  <li>    <div class="description">      <div class="heading">        <span>          <i class="fa fa-warning" aria-hidden"true"=""></i>          <a href="https://github.com/troessner/reek/blob/master/docs/Utility-Function.md" target="_blank"><b>UtilityFunction</b></a>        </span>      </div>      <span>merge_customer_subscriptions doesn't depend on instance state (maybe move it to another class?)</span>          </div>  </li></ol>
+    file_path = &quot;spec/support/fixtures/stripe_customer_find.json&quot;
+    customer_response = File.read(file_path)
+    customer = JSON.parse(customer_response)
+    customer[&quot;subscriptions&quot;] = subscriptions
+    customer.to_json
+  end
+end
+</code>
+  </div>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Javascripts -->
+    <script src='../../assets/javascripts/jquery.min.js'></script>
+    <script src='../../assets/javascripts/jquery.tablesorter.min.js'></script>
+    <script src='../../assets/javascripts/jquery.scrollTo.min.js'></script>
+    <script src='../../assets/javascripts/jquery.timeago.js'></script>
+    <script src='../../assets/javascripts/highcharts.src-4.0.1.js'></script>
+    <script src='../../assets/javascripts/prettify.js'></script>
+    <script src='../../assets/javascripts/bootstrap.min.js'></script>
+    <script src='../../assets/javascripts/application.js'></script>
+    <script src='../../assets/javascripts/jquery.filtertable.min.js'></script>
+  </body>
+</html>
